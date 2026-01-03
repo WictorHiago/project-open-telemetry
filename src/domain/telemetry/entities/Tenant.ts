@@ -1,4 +1,4 @@
-class Tenant {
+export default class Tenant {
     public id: string;
     public username: string;
     public password: string;

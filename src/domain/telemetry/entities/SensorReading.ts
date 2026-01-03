@@ -1,4 +1,4 @@
-class SensorReading {
+export default class SensorReading {
     public id: string;
     public deviceId: string;
     public tenantId: string;
@@ -9,5 +9,14 @@ class SensorReading {
         this.deviceId = deviceId;
         this.tenantId = tenantId;
         this.value = value;
+    }
+
+    static create(
+        id: string,
+        deviceId: string,
+        tenantId: string,
+        value: number,
+    ) {
+        return new SensorReading(id, deviceId, tenantId, value);
     }
 }

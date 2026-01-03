@@ -10,7 +10,7 @@ export const devices = pgTable("devices", {
 
 export const sensorReadings = pgTable("sensor_readings", {
   id: uuid("id").primaryKey().defaultRandom(),
-  deviceId: uuid("device_id").references(() => devices.id),
+  deviceId: uuid("device_id").references(() => devices.id).notNull(),
   tenantId: varchar("tenant_id", { length: 100 }).notNull(),
   value: numeric("value").notNull(),
   timestamp: timestamp("timestamp").defaultNow().notNull(),
