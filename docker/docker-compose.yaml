@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: telemetry-postgres
+    environment:
+      POSTGRES_DB: TELEMETRY
+      POSTGRES_USER: telemetry
+      POSTGRES_PASSWORD: telemetry
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_telemetry_data:/var/lib/postgresql/data
+    networks:
+      - telemetry-net
+
+  pgadmin:
+    image: dpage/pgadmin4:8.5
+    container_name: telemetry-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - telemetry-net
+
+volumes:
+  pg_telemetry_data:
+
+networks:
+  telemetry-net:
+    driver: bridge
