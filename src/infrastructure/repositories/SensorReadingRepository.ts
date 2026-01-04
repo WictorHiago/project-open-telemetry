@@ -21,12 +21,18 @@ export class SensorReadingRepository implements ISensorReadingRepository {
             .returning();
 
         const createdSensorReading = newSensorReading[0];
+
+        if (!createdSensorReading) {
+            throw new Error('Failed to create sensor reading');
+        }
+
         return SensorReading.create(
             createdSensorReading.id,
             createdSensorReading.deviceId,
             createdSensorReading.tenantId,
             parseFloat(createdSensorReading.value),
-        ) as SensorReading;
+            createdSensorReading.timestamp,
+        );
     }
 
     async findById(id: string): Promise<SensorReading | null> {
@@ -44,6 +50,7 @@ export class SensorReadingRepository implements ISensorReadingRepository {
                   foundSensorReading.deviceId,
                   foundSensorReading.tenantId,
                   parseFloat(foundSensorReading.value),
+                  foundSensorReading.timestamp,
               ) as SensorReading)
             : null;
     }
@@ -63,6 +70,7 @@ export class SensorReadingRepository implements ISensorReadingRepository {
                   foundSensorReading.deviceId,
                   foundSensorReading.tenantId,
                   parseFloat(foundSensorReading.value),
+                  foundSensorReading.timestamp,
               ) as SensorReading)
             : null;
     }
@@ -82,6 +90,7 @@ export class SensorReadingRepository implements ISensorReadingRepository {
                 sensorReading.deviceId,
                 sensorReading.tenantId,
                 parseFloat(sensorReading.value),
+                sensorReading.timestamp,
             ),
         ) as SensorReading[];
     }

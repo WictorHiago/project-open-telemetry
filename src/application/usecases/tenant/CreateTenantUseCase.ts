@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe';
 import { randomUUID } from 'crypto';
 import { ITenantRepository } from '../../../domain/telemetry/repositories/ITenantRepository';
 import Tenant from '../../../domain/telemetry/entities/Tenant';
-import { CreateTenantRequestDTO } from '../../../presentation/http/dtos/tenant/CreateTenantRequestDTO';
-import { CreateTenantResponseDTO } from '../../../presentation/http/dtos/tenant/CreateTenantResponseDTO';
+import { CreateTenantDTO } from '../../dtos/tenant/CreateTenantDTO';
+import { CreateTenantResponseDTO } from '../../dtos/tenant/CreateTenantResponseDTO';
 import bcrypt from 'bcrypt';
 
 @injectable()
@@ -13,7 +13,7 @@ export class CreateTenantUseCase {
     ) {}
 
     async execute(
-        payload: CreateTenantRequestDTO,
+        payload: CreateTenantDTO,
     ): Promise<CreateTenantResponseDTO> {
         const tenantExist = await this.tenantRepository.findByUsername(
             payload.username,

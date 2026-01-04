@@ -1,4 +1,5 @@
 export interface CreateTenantResponseDTO {
-    id?: string;
+    id: string;
     username: string;
 }
+

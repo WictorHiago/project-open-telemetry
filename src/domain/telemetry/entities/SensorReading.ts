@@ -3,12 +3,20 @@ export default class SensorReading {
     public deviceId: string;
     public tenantId: string;
     public value: number;
+    public timestamp: Date;
 
-    constructor(id: string, deviceId: string, tenantId: string, value: number) {
+    constructor(
+        id: string,
+        deviceId: string,
+        tenantId: string,
+        value: number,
+        timestamp: Date,
+    ) {
         this.id = id;
         this.deviceId = deviceId;
         this.tenantId = tenantId;
         this.value = value;
+        this.timestamp = timestamp;
     }
 
     static create(
@@ -16,7 +24,8 @@ export default class SensorReading {
         deviceId: string,
         tenantId: string,
         value: number,
+        timestamp: Date,
     ) {
-        return new SensorReading(id, deviceId, tenantId, value);
+        return new SensorReading(id, deviceId, tenantId, value, timestamp);
     }
 }

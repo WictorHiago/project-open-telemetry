@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { CreateTenantUseCase } from '../../../application/usecases/tenant/CreateTenantUseCase';
-import { CreateTenantRequestDTO } from '../dtos/tenant/CreateTenantRequestDTO';
-import { CreateTenantResponseDTO } from '../dtos/tenant/CreateTenantResponseDTO';
+import { CreateTenantDTO } from '../../../application/dtos/tenant/CreateTenantDTO';
+import { CreateTenantResponseDTO } from '../../../application/dtos/tenant/CreateTenantResponseDTO';
 export class CreateTenantController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { username, password } = request.body;
@@ -15,7 +15,7 @@ export class CreateTenantController {
         try {
             const createTenantUseCase = container.resolve(CreateTenantUseCase);
 
-            const payload: CreateTenantRequestDTO = {
+            const payload: CreateTenantDTO = {
                 username,
                 password,
             };

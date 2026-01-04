@@ -37,6 +37,11 @@ export default class LoginUseCase {
             secretKey,
             { expiresIn: '3m' },
         );
+        console.log({
+            tokenGerado: token,
+            tenantId: tenant.id,
+            username: tenant.username,
+        });
 
         return {
             token,

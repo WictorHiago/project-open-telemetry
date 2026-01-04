@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { CreateDeviceUseCase } from '../../../application/usecases/device/CreateDeviceUseCase';
-import { CreateDeviceResponseDTO } from '../dtos/device/CreateDeviceResponseDTO';
+import { CreateDeviceDTO } from '../../../application/dtos/device/CreateDeviceDTO';
+import { CreateDeviceResponseDTO } from '../../../application/dtos/device/CreateDeviceResponseDTO';
 
 export class CreateDeviceController {
     async handle(request: Request, response: Response): Promise<Response> {
@@ -15,7 +16,7 @@ export class CreateDeviceController {
         }
 
         const createDeviceUseCase = container.resolve(CreateDeviceUseCase);
-        const payload = {
+        const payload: CreateDeviceDTO = {
             name,
             tenantId,
         };

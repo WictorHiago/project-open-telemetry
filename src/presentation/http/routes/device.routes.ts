@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { CreateDeviceController } from '../controllers/CreateDeviceController';
 import { container } from 'tsyringe';
 import { AuthenticatedMiddleware } from '../middlewares/AuthenticatedMiddleware';
-import { ListDeviceController } from '../controllers/ListDeviceControllers';
+import { ListDeviceController } from '../controllers/ListDeviceController';
 
 const deviceRoutes = Router();
 const createDeviceController = container.resolve(CreateDeviceController);
