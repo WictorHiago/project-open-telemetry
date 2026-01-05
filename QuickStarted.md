@@ -39,3 +39,8 @@ senha: telemetry
 
 database: TELEMETRY
 schema: public
+
+# teste com jest
+npm install --save-dev jest
+
+npm install --save-dev ts-jest @types/jest supertest @types/supertest
