@@ -4,6 +4,23 @@ API REST para coleta e gerenciamento de dados de telemetria de dispositivos IoT 
 
 ---
 
+## 📋 Planejamento
+
+Desenvolvimento incremental em 7++ commits ao longo de 8 a 9 horas:
+-   (1) estrutura base + Drizzle,
+-   (2) controllers/DTOs/rotas,
+-   (3) autenticação JWT,
+-   (4) sensor readings,
+-   (5) listagem ordenada,
+-   (6) testes de integração.
+-   (7) Documentação
+
+Planejamento vs. Execução:
+-   Mudança: ClickHouse → PostgreSQL (compatibilidade Drizzle)
+-   Adicionado: JWT + bcrypt (segurança)
+-   Evoluído: Multi-tenancy via token (não header)
+-   Ampliado: Testes completos com Jest/Supertest
+
 ## 📋 Sobre o Projeto
 
 Sistema de telemetria desenvolvido para gerenciar dispositivos IoT e suas leituras de sensores, com foco em:
