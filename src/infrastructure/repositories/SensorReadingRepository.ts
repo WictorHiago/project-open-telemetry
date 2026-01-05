@@ -2,7 +2,7 @@ import { injectable } from 'tsyringe';
 import { db } from '../database/drizzle/datasource';
 import { sensorReadings } from '../database/drizzle/schemas/schema';
 import { ISensorReadingRepository } from '../../domain/telemetry/repositories/ISensorReadingRepository';
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 import SensorReading from '../../domain/telemetry/entities/SensorReading';
 
 @injectable()
@@ -35,54 +35,23 @@ export class SensorReadingRepository implements ISensorReadingRepository {
         );
     }
 
-    async findById(id: string): Promise<SensorReading | null> {
-        const database = await db;
-
-        const sensorReading = await database
-            .select()
-            .from(sensorReadings)
-            .where(eq(sensorReadings.id, id));
-
-        const foundSensorReading = sensorReading[0];
-        return foundSensorReading
-            ? (SensorReading.create(
-                  foundSensorReading.id,
-                  foundSensorReading.deviceId,
-                  foundSensorReading.tenantId,
-                  parseFloat(foundSensorReading.value),
-                  foundSensorReading.timestamp,
-              ) as SensorReading)
-            : null;
-    }
-
-    async findByDeviceId(deviceId: string): Promise<SensorReading | null> {
-        const database = await db;
-
-        const sensorReading = await database
-            .select()
-            .from(sensorReadings)
-            .where(eq(sensorReadings.deviceId, deviceId));
-
-        const foundSensorReading = sensorReading[0];
-        return foundSensorReading
-            ? (SensorReading.create(
-                  foundSensorReading.id,
-                  foundSensorReading.deviceId,
-                  foundSensorReading.tenantId,
-                  parseFloat(foundSensorReading.value),
-                  foundSensorReading.timestamp,
-              ) as SensorReading)
-            : null;
-    }
-
-    async findAllByDeviceId(deviceId: string): Promise<SensorReading[]> {
+    async findAllByDeviceIdAndTenantId(
+        deviceId: string,
+        tenantId: string,
+    ): Promise<SensorReading[]> {
         const database = await db;
 
         const sensorReadingList = await database
             .select()
             .from(sensorReadings)
-            .where(eq(sensorReadings.deviceId, deviceId))
-            .orderBy(desc(sensorReadings.timestamp));
+            .where(
+                and(
+                    eq(sensorReadings.deviceId, deviceId),
+                    eq(sensorReadings.tenantId, tenantId),
+                ),
+            )
+            .orderBy(desc(sensorReadings.timestamp))
+            .limit(10);
 
         return sensorReadingList.map((sensorReading) =>
             SensorReading.create(

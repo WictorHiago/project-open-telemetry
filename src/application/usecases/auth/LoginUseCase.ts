@@ -31,17 +31,13 @@ export default class LoginUseCase {
         }
 
         const secretKey = process.env.SECRET_KEY!;
+        const expiresIn = process.env.TOKEN_EXPIRATION!;
 
         const token = jwt.sign(
             { tenantId: tenant.id, username: tenant.username },
             secretKey,
             { expiresIn: '3m' },
         );
-        console.log({
-            tokenGerado: token,
-            tenantId: tenant.id,
-            username: tenant.username,
-        });
 
         return {
             token,

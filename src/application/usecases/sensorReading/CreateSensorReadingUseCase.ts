@@ -43,7 +43,7 @@ export class CreateSensorReadingUseCase {
             payload.deviceId,
             payload.tenantId,
             payload.value,
-            new Date(), // Timestamp temporário - será substituído pelo banco de dados
+            new Date(),
         );
 
         const createdSensorReading = await this.sensorReadingRepository.create(

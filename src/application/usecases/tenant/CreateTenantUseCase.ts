@@ -31,8 +31,6 @@ export class CreateTenantUseCase {
             hashedPassword,
         );
 
-        console.log(tenant);
-
         const createdTenant = await this.tenantRepository.create(tenant);
 
         return {
